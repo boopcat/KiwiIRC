@@ -205,14 +205,14 @@ _kiwi.view.Channel = _kiwi.view.Panel.extend({
             return;
         }
 
-        re = new RegExp('(^|\\s)([' + _.escapeRegExp(network.get('channel_prefix')) + '][^ .,\\007]+)', 'g');
+        re = new RegExp('(^|[\\s\+%@&~])([' + _.escapeRegExp(network.get('channel_prefix')) + '][^ .,\\007]+)', 'g');
 
         if (!word.match(re)) {
             return parsed;
         }
 
-        parsed = word.replace(re, function (m1, m2) {
-            return m2 + '<a class="chan" data-channel="' + _.escape(m1.trim()) + '">' + _.escape(m1.trim()) + '</a>';
+        parsed = word.replace(re, function (full, m1, m2) {
+            return m1 + '<a class="chan" data-channel="' + _.escape(m2.trim()) + '">' + _.escape(m2.trim()) + '</a>';
         });
 
         return parsed;
